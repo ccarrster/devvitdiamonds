@@ -46,67 +46,58 @@ Devvit.addCustomPostType({
     const [playerIndustrial, setPlayerIndustrial] = useState(0);
     const [playerGrain, setPlayerGrain] = useState(0);
     const [roll, setRoll] = useState('');
+    const [rollIcon, setRollIcon] = useState('random');
+    const [rollAction, setRollAction] = useState('random');
+    const [rollColor, setRollColor] = useState('black');
+    const [actionColor, setActionColor] = useState('black');
+    const [mode, setMode] = useState('help');
+    //coins,topic-pets,user-note,hot,settings,topic-homegarden
+//Add help button
 
-    if(gold < 5){
-      setPlayerGold(0)
-      setGold(100)
-    }
-    if(silver < 5){
-      setPlayerSilver(0)
-      setSilver(100)
-    }
-    if(bonds < 5){
-      setPlayerBonds(0)
-      setBonds(100)
-    }
-    if(oil < 5){
-      setPlayerOil(0)
-      setOil(100)
-    }
-    if(industrial < 5){
-      setPlayerIndustrial(0)
-      setIndustrial(100)
-    }
-    if(grain < 5){
-      setPlayerGrain(0)
-      setGrain(100)
-    }
-
-    if(gold > 195){
-      setPlayerGold(playerGold * 2)
-      setGold(100)
-    }
-    if(silver > 195){
-      setPlayerSilver(playerSilver * 2)
-      setSilver(100)
-    }
-    if(bonds > 195){
-      setPlayerBonds(playerBonds * 2)
-      setBonds(100)
-    }
-    if(oil > 195){
-      setPlayerOil(playerOil * 2)
-      setOil(100)
-    }
-    if(industrial > 195){
-      setPlayerIndustrial(playerIndustrial * 2)
-      setIndustrial(100)
-    }
-    if(grain > 195){
-      setPlayerGrain(playerGrain * 2)
-      setGrain(100)
+    if(mode == 'help'){
+      return(
+        <vstack height="100%" width="100%" gap="medium" alignment="center middle">
+        <text wrap={true}>How much money you can make in 10 minutes in a fake stock market?</text>
+        <text wrap={true}>Start with $5000 and buy some of 6 different stocks.</text>
+        <text wrap={true}>Roll the dice to move the stocks up/down or pay dividends.</text>
+        <text wrap={true}>Stocks only pay dividends if their value is 100 or greater.</text>
+        <text wrap={true}>The higher value of the stocks, the more they cost. Lower the value less they cost.</text>
+        <text wrap={true}>If the stock reaches 200, double the amount you own. If the stock reaches 0, you lose all of that stock.</text>
+        <text wrap={true}>Buy or sell stocks at any time.</text>
+        <button onPress={() => {
+          setMode('play')
+        }}>Play</button>
+        </vstack>  
+      )
     }
 
-
+    if(mode == 'play'){
     return (
       <vstack height="100%" width="100%" gap="medium" alignment="center middle">
-        <text size="large">{`Player Money: ${money}`}</text>
-        <text size="large">{`Player Gold: ${playerGold}`} {`Silver: ${playerSilver}`} {`Bonds: ${playerBonds}`} {`Oil: ${playerOil}`} {`Industrial: ${playerIndustrial}`} {`Grain: ${playerGrain}`}</text>
-        <text size="large">{`Global Gold: ${gold}`} {`Silver: ${silver}`} {`Bonds: ${bonds}`} {`Oil: ${oil}`} {`Industrial: ${industrial}`} {`Grain: ${grain}`}</text>
-        <text size="large">{`Roll: ${roll}`}</text>
+        <hstack>
+          <icon name="payment"></icon><text>{`${money}`}</text>
+        </hstack>
+        <hstack>
+          <icon name="profile"></icon>
+          <icon name="coins" color="gold"></icon><text>{`${playerGold}`}</text>
+          <icon name="topic-pets" color="silver"></icon><text>{`${playerSilver}`}</text>
+          <icon name="user-note" color="blue"></icon><text>{`${playerBonds}`}</text>
+          <icon name="hot" color="black"></icon><text>{`${playerOil}`}</text>
+          <icon name="settings" color="pink"></icon><text>{`${playerIndustrial}`}</text>
+          <icon name="topic-homegarden" color="green"></icon><text>{`${playerGrain}`}</text>
+        </hstack>
+        <hstack>
+          <icon name="world"></icon>
+          <icon name="coins" color="gold"></icon><text>{`${gold}`}</text>
+          <icon name="topic-pets" color="silver"></icon><text>{`${silver}`}</text>
+          <icon name="user-note" color="blue"></icon><text>{`${bonds}`}</text>
+          <icon name="hot" color="black"></icon><text>{`${oil}`}</text>
+          <icon name="settings" color="pink"></icon><text>{`${industrial}`}</text>
+          <icon name="topic-homegarden" color="green"></icon><text>{`${grain}`}</text>
+        </hstack>
         
         <hstack>
-        <button appearance="primary" onPress={() => 
+        <button icon="coins" appearance="success" onPress={() => 
           {
             let cost = gold / 100 * 500
             if(money >= cost){
@@ -115,9 +106,9 @@ Devvit.addCustomPostType({
             }
           }
         }>
-          Buy 500 Gold
+          +500
         </button>
-        <button appearance="primary" onPress={() => 
+        <button icon="topic-pets" appearance="success" onPress={() => 
           {
             let cost = silver / 100 * 500
             if(money >= cost){
@@ -126,10 +117,10 @@ Devvit.addCustomPostType({
             }
           }
         }>
-          Buy 500 Silver
+          +500
         </button>
 
-        <button appearance="primary" onPress={() => 
+        <button icon="user-note" appearance="success" onPress={() => 
           {
             let cost = bonds / 100 * 500
             if(money >= cost){
@@ -138,10 +129,10 @@ Devvit.addCustomPostType({
             }
           }
         }>
-          Buy 500 Bonds
+          +500
         </button>
 
-        <button appearance="primary" onPress={() => 
+        <button icon="hot" appearance="success" onPress={() => 
           {
             let cost = oil / 100 * 500
             if(money >= cost){
@@ -150,10 +141,10 @@ Devvit.addCustomPostType({
             }
           }
         }>
-          Buy 500 Oil
+          +500
         </button>
 
-        <button appearance="primary" onPress={() => 
+        <button icon="settings" appearance="success" onPress={() => 
           {
             let cost = industrial / 100 * 500
             if(money >= cost){
@@ -162,10 +153,10 @@ Devvit.addCustomPostType({
             }
           }
         }>
-          Buy 500 Industrial
+          +500
         </button>
 
-        <button appearance="primary" onPress={() => 
+        <button icon="topic-homegarden" appearance="success" onPress={() => 
           {
             let cost = grain / 100 * 500
             if(money >= cost){
@@ -174,77 +165,75 @@ Devvit.addCustomPostType({
             }
           }
         }>
-          Buy 500 Grain
+          +500
         </button>
-
-
         </hstack>
 
         <hstack>
-        <button appearance="primary" onPress={() => 
+        <button icon="coins" appearance="destructive" onPress={() => 
           {
             if(playerGold >= 500){
               setPlayerGold((playerGold) => playerGold - 500)
               setMoney(money + (gold / 100 * 500))
             }
           }}>
-          Sell 500 Gold
+          -500
         </button>
-        <button appearance="primary" onPress={() => 
+        <button icon="topic-pets" appearance="destructive" onPress={() => 
           {
             if(playerSilver >= 500){
               setPlayerSilver((playerSilver) => playerSilver - 500)
               setMoney(money + (silver / 100 * 500))
             }
           }}>
-          Sell 500 Silver
+          -500
         </button>
 
-        <button appearance="primary" onPress={() => 
+        <button icon="user-note" appearance="destructive" onPress={() => 
           {
             if(playerBonds >= 500){
               setPlayerBonds((playerBonds) => playerBonds - 500)
               setMoney(money + (bonds / 100 * 500))
             }
           }}>
-          Sell 500 Bonds
+          -500
         </button>
 
-        <button appearance="primary" onPress={() => 
+        <button icon="hot" appearance="destructive" onPress={() => 
           {
             if(playerOil >= 500){
               setPlayerOil((playerOil) => playerOil - 500)
               setMoney(money + (oil / 100 * 500))
             }
           }}>
-          Sell 500 Oil
+          -500
         </button>
 
-        <button appearance="primary" onPress={() => 
+        <button icon="settings" appearance="destructive" onPress={() => 
           {
             if(playerIndustrial >= 500){
               setPlayerIndustrial((playerIndustrial) => playerIndustrial - 500)
               setMoney(money + (industrial / 100 * 500))
             }
           }}>
-          Sell 500 Industrial
+          -500
         </button>
 
-        <button appearance="primary" onPress={() => 
+        <button icon="topic-homegarden" appearance="destructive" onPress={() => 
           {
             if(playerGrain >= 500){
               setPlayerGrain((playerGrain) => playerGrain - 500)
               setMoney(money + (grain / 100 * 500))
             }
           }}>
-          Sell 500 Grain
+          -500
         </button>
 
 
         </hstack>
 
 
-        <button appearance="primary" onPress={() => 
+        <button icon="random" appearance="primary" onPress={() => 
           {
             let d1 = Math.floor(Math.random() * 6)
             let stock = ''
@@ -254,16 +243,28 @@ Devvit.addCustomPostType({
             let action = ''
             if(d1 == 0){
               stock = 'gold'
+              setRollIcon("coins")
+              setRollColor("gold")
             } else if(d1 == 1){
               stock = 'silver'
+              setRollIcon("topic-pets")
+              setRollColor("silver")
             } else if(d1 == 2){
               stock = 'bonds'
+              setRollIcon("user-note")
+              setRollColor("blue")
             } else if(d1 == 3){
               stock = 'oil'
+              setRollIcon("hot")
+              setRollColor("black")
             } else if(d1 == 4){
               stock = 'industrial'
+              setRollIcon("settings")
+              setRollColor("pink")
             } else if(d1 == 5){
               stock = 'grain'
+              setRollIcon("topic-homegarden")
+              setRollColor("green")
             }
             if(d2 == 0){
               value = '5'
@@ -280,46 +281,118 @@ Devvit.addCustomPostType({
             }
             if(d3 == 0){
               action = 'up'
+              setRollAction('upvote');
+              setActionColor('green');
             } else if(d3 == 1){
               action = 'down'
+              setRollAction('downvote');
+              setActionColor('red');
             } else if(d3 == 2){
               action = 'div'
+              setRollAction('award');
+              setActionColor('blue');
             } else if(d3 == 3){
               action = 'up'
+              setRollAction('upvote');
+              setActionColor('green');
             } else if(d3 == 4){
               action = 'down'
+              setRollAction('downvote');
+              setActionColor('red');
             } else if(d3 == 5){
               action = 'div'
+              setRollAction('award');
+              setActionColor('blue');
             }
-            setRoll(stock + " " + action + " " + value);
+            setRoll(value);
 
             if(action == 'up'){
               if(stock == 'gold'){
-                setGold(gold + parseInt(value))
+                if(gold + parseInt(value) > 195){
+                  setGold(100)  
+                  setPlayerGold(playerGold * 2)
+                } else {
+                  setGold(gold + parseInt(value))
+                }
               } else if(stock == 'silver'){
-                setSilver(silver + parseInt(value))
+                if(silver + parseInt(value) > 195){
+                  setSilver(100)  
+                  setPlayerSilver(playerSilver * 2)
+                } else {
+                  setSilver(silver + parseInt(value))
+                }
               } else if(stock == 'bonds'){
-                setBonds(bonds + parseInt(value))
+                if(bonds + parseInt(value) > 195){
+                  setBonds(100)  
+                  setPlayerBonds(playerBonds * 2)
+                } else {
+                  setBonds(bonds + parseInt(value))
+                }
               } else if(stock == 'oil'){
-                setOil(oil + parseInt(value))
+                if(oil + parseInt(value) > 195){
+                  setOil(100)  
+                  setPlayerOil(playerOil * 2)
+                } else {
+                  setOil(oil + parseInt(value))
+                }
               } else if(stock == 'industrial'){
-                setIndustrial(industrial + parseInt(value))
+                if(industrial + parseInt(value) > 195){
+                  setIndustrial(100)  
+                  setPlayerIndustrial(playerIndustrial * 2)
+                } else {
+                  setIndustrial(industrial + parseInt(value))
+                }
               } else if(stock == 'grain'){
-                setGrain(grain + parseInt(value))
+                if(grain + parseInt(value) > 195){
+                  setGrain(100)  
+                  setPlayerGrain(playerGrain * 2)
+                } else {
+                  setGrain(grain + parseInt(value))
+                }
               }
             } else if(action == 'down'){
               if(stock == 'gold'){
-                setGold(gold - parseInt(value))
+                if(gold - parseInt(value) < 5){
+                  setGold(100)  
+                  setPlayerGold(0)
+                } else {
+                  setGold(gold - parseInt(value))
+                }
               } else if(stock == 'silver'){
-                setSilver(silver - parseInt(value))
+                if(silver - parseInt(value) < 5){
+                  setSilver(100)  
+                  setPlayerSilver(0)
+                } else {
+                  setSilver(silver - parseInt(value))
+                }
               } else if(stock == 'bonds'){
-                setBonds(bonds - parseInt(value))
+                if(bonds - parseInt(value) < 5){
+                  setBonds(100)  
+                  setPlayerBonds(0)
+                } else {
+                  setBonds(bonds - parseInt(value))
+                }
               } else if(stock == 'oil'){
-                setOil(oil - parseInt(value))
+                if(oil - parseInt(value) < 5){
+                  setOil(100)  
+                  setPlayerOil(0)
+                } else {
+                  setOil(oil - parseInt(value))
+                }
               } else if(stock == 'industrial'){
-                setIndustrial(industrial - parseInt(value))
+                if(industrial - parseInt(value) < 5){
+                  setIndustrial(100)  
+                  setPlayerIndustrial(0)
+                } else {
+                  setIndustrial(industrial - parseInt(value))
+                }
               } else if(stock == 'grain'){
-                setGrain(grain - parseInt(value))
+                if(grain - parseInt(value) < 5){
+                  setGrain(100)  
+                  setPlayerGrain(0)
+                } else {
+                  setGrain(grain - parseInt(value))
+                }
               }
             } else if(action == 'div'){
               if(stock == 'gold'){
@@ -348,12 +421,15 @@ Devvit.addCustomPostType({
                 }
               }
             }
-
-          }}>
-          Roll Dice
-        </button>
+          }}></button>
+        <hstack>
+          <icon name={rollIcon} color={rollColor}></icon>
+          <icon name={rollAction} color={actionColor}></icon>
+          <text>{`${roll}`}</text>
+        </hstack>
       </vstack>
     );
+  }
   },
 });
 
