@@ -21,3 +21,6 @@
 +Log of rolls.
 +Multiplayer.
 +Sharing stats.
+
+https://redditgamesandpuzzles.devpost.com/
+https://devpost.com/software/kraplow
